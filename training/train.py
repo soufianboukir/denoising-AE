@@ -37,7 +37,7 @@ def train():
 
     model     = get_model().to(device)
     criterion = nn.MSELoss()
-    optimizer = optim.Adam(model.parameters(), lr=Config.learning_rate)
+    optimizer = optim.SGD(model.parameters(), lr=Config.learning_rate)
 
     train_losses = []
     val_losses   = []
