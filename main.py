@@ -56,8 +56,6 @@ def train(optimizer_name):
         optimizer = optim.Adam(model.parameters(), lr=LR)
     elif optimizer_name == "SGD":
         optimizer = optim.SGD(model.parameters(), lr=LR, momentum=0.9)
-    elif optimizer_name == "RMSprop":
-        optimizer = optim.RMSprop(model.parameters(), lr=LR)
 
     losses = []
     for epoch in range(EPOCHS):
@@ -83,7 +81,7 @@ def train(optimizer_name):
     return losses
 
 # ── Run all optimizers ────────────────────────────────────────────
-optimizers = ["Adam", "SGD", "RMSprop"]
+optimizers = ["Adam", "SGD"]
 all_losses = {}
 
 for opt in optimizers:
