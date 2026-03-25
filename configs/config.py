@@ -1,7 +1,7 @@
 class Config:
     batch_size = 128
-    learning_rate = 1e-3
-    epochs = 15
+    learning_rate = 1e-5
+    epochs = 8
     noise_factor = 0.3
 
     device = "cuda"
@@ -9,4 +9,4 @@ class Config:
     model_type = "cnn"  # "cnn" or "mlp"
 
     data_path = "./data"
-    model_path = "./saved_model.pth"
+    model_path = "./saved_model_cnn.pth"

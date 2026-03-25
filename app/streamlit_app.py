@@ -145,7 +145,7 @@ def load_model():
         m = CNNAutoencoder()
     else:
         m = MLPAutoencoder()
-    m.load_state_dict(torch.load("saved_model.pth", map_location="cpu", weights_only=True))
+    m.load_state_dict(torch.load("saved_model_cnn.pth", map_location="cpu", weights_only=True))
     m.eval()
     return m
 
