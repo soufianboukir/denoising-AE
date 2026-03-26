@@ -121,8 +121,8 @@ with col_dev:
             <div class="credits-label">Developed by</div>
             <div class="credits-name">
                 SOUFIAN BOUKIR<br>
-                MOUAD ELOUICHOUANI<br>
-                MOHAMED BELALIA
+                MOHAMED BELALIA<br>
+                MOUAD ELOUICHOUANI
             </div>
         </div>
     """, unsafe_allow_html=True)
