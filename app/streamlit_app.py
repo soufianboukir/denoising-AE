@@ -46,7 +46,6 @@ st.markdown("""
         }
 
         .credits-box {
-            # background: linear-gradient(135deg, #0f172a, #1e1b4b);
             border: 1px solid #334155;
             border-radius: 14px;
             padding: 1.2rem 1.6rem;
@@ -69,7 +68,6 @@ st.markdown("""
         }
 
         .teacher-name {
-            font-size: 0.85rem;
             font-size: 18px;
             font-weight: 800;
         }
@@ -89,6 +87,11 @@ st.markdown("""
             border: 1px solid #1e293b;
             border-radius: 12px;
             padding: 1rem;
+        }
+
+        .image-wrapper {
+            display: flex;
+            justify-content: center;
         }
 
         .stSlider > div > div > div {
@@ -139,17 +142,30 @@ with col_teach:
 
 st.markdown("---")
 
+# ↓ Model selector — user picks CNN or MLP from the UI
+model_choice = st.radio(
+    "Select Model",
+    options=["CNN", "MLP"],
+    horizontal=True
+)
+
+# ↓ Loads the correct model based on user selection
+# Change the .pth filenames if yours are named differently
 @st.cache_resource
-def load_model():
-    if Config.model_type == "cnn":
+def load_model(choice):
+    if choice == "CNN":
         m = CNNAutoencoder()
+        m.load_state_dict(torch.load("saved_model_cnn.pth", map_location="cpu", weights_only=True))
     else:
         m = MLPAutoencoder()
-    m.load_state_dict(torch.load("saved_model_cnn.pth", map_location="cpu", weights_only=True))
+        # ↓ Change this filename to match your MLP saved model file
+        m.load_state_dict(torch.load("saved_model_mlp.pth", map_location="cpu", weights_only=True))
     m.eval()
     return m
 
-model = load_model()
+model = load_model(model_choice)
+
+st.markdown("---")
 
 uploaded = st.file_uploader("Upload an image to denoise", type=["png", "jpg", "jpeg"])
 st.markdown('<p class="upload-hint">Supports PNG, JPG — will be resized to 28×28 (FashionMNIST format)</p>', unsafe_allow_html=True)
@@ -174,14 +190,17 @@ if uploaded:
 
     col1, col2, col3 = st.columns(3)
 
+    # ↓ Change this number to resize images (e.g. 150, 250, 300)
+    IMAGE_WIDTH = 400
+
     with col1:
         st.markdown('<p class="image-label">Original</p>', unsafe_allow_html=True)
-        st.image(img.squeeze().numpy(), use_column_width=True, clamp=True)
+        st.image(img.squeeze().numpy(), width=IMAGE_WIDTH, clamp=True)
 
     with col2:
         st.markdown('<p class="image-label">Noisy input</p>', unsafe_allow_html=True)
-        st.image(noisy.squeeze().numpy(), use_column_width=True, clamp=True)
+        st.image(noisy.squeeze().numpy(), width=IMAGE_WIDTH, clamp=True)
 
     with col3:
-        st.markdown('<p class="image-label">Reconstructed</p>', unsafe_allow_html=True)
-        st.image(output.squeeze().numpy(), use_column_width=True, clamp=True)
+        st.markdown(f'<p class="image-label">Reconstructed ({model_choice})</p>', unsafe_allow_html=True)
+        st.image(output.squeeze().numpy(), width=IMAGE_WIDTH, clamp=True)
