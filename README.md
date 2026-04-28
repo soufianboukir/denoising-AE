@@ -2,6 +2,9 @@
 
 This project implements a Denoising Autoencoder using PyTorch to remove noise from images. It features both Convolutional Neural Network (CNN) and Multi-Layer Perceptron (MLP) architectures.
 
+<img width="1920" height="792" alt="Screenshot from 2026-04-28 23-52-07" src="https://github.com/user-attachments/assets/878b95b0-8863-42a7-8995-2fa464fba161" />
+<img width="1917" height="604" alt="Screenshot from 2026-04-28 23-52-19" src="https://github.com/user-attachments/assets/a3adf9c3-424a-4fe5-a695-d2d77137c78e" />
+
 ## Features
 
 - **Denoising Autoencoder**: Learns to reconstruct clean images from noisy inputs by injecting Gaussian noise.
